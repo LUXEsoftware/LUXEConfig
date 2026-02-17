@@ -4,7 +4,11 @@ from Configurables import GeoSvc, MarlinProcessorWrapper, EventDataSvc
 from Gaudi.Configuration import INFO
 from k4FWCore import ApplicationMgr, IOSvc
 from k4FWCore.parseArgs import parser
+from k4MarlinWrapper.io_helpers import IOHandlerHelper
 
+parser.add_argument(
+    "--inputFile", help="Input file from simulation", type=str, default=""
+)
 parser.add_argument(
     "-o",
     "--outputFile",
@@ -22,7 +26,6 @@ svc_list = [EventDataSvc("EventDataSvc")]
 # Setup inputs and outputs
 io_svc = IOSvc(
     "IOSvc",
-    Output=reco_args.outputFile,
     OutputLevel=INFO,
 )
 
@@ -38,7 +41,12 @@ if reco_args.compactFile:
     )
 
 alg_list = []
+io_handler = IOHandlerHelper(alg_list, io_svc)
+io_handler.add_reader(reco_args.inputFile)
 
+
+io_handler.add_edm4hep_writer(reco_args.outputFileBase)
+io_handler.finalize_converters()
 
 app_mgr = ApplicationMgr(
     TopAlg=alg_list, EvtSel="NONE", EvtMax=3, ExtSvc=svc_list, OutputLevel=INFO
