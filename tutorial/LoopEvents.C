@@ -7,7 +7,7 @@
 
 auto rootReader = podio::ROOTReader(); //Selected low level reader to read root EDM4hep file
 void init(){//Initialize file to read and setup decoder for detector segmentation CellID
-	rootReader.openFile("../reconstruction/luxe_reco.edm4hep.root"); //File to read
+	rootReader.openFile("../reconstruction/luxe_reco.edm4hep.root"); //File to read, change path to read any other EDM4hep file
 	const auto decoder = dd4hep::DDSegmentation::BitFieldCoder("system:0:1,side:1:1,layer:2:2,module:4:1,sensor:5:5,x:32:-16,y:48:-16"); //Decoder of CellID from string in detector collection
 
 	//const auto cats = rootReader.getAvailableCategories();
