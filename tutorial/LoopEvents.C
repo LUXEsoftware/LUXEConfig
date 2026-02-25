@@ -7,7 +7,7 @@
 
 auto rootReader = podio::ROOTReader(); //Selected low level reader to read root EDM4hep file
 void init(){//Initialize file to read and setup decoder for detector segmentation CellID
-	rootReader.openFile("/lhome/ific/a/almanzam/LUXE_Simulations/LUXEConfig/reconstruction/luxe_reco.edm4hep.root"); //File to read
+	rootReader.openFile("../reconstruction/luxe_reco.edm4hep.root"); //File to read
 	const auto decoder = dd4hep::DDSegmentation::BitFieldCoder("system:0:1,side:1:1,layer:2:2,module:4:1,sensor:5:5,x:32:-16,y:48:-16"); //Decoder of CellID from string in detector collection
 
 	//const auto cats = rootReader.getAvailableCategories();
@@ -34,6 +34,7 @@ void ReadEDM4hepFile(){
 			cout << "This is secondary particle \n";
 		}
 		double x_vertex = particle.getVertex().x; //Read vertex coordinate x of MCParticle
+		}
 	}
 	return ;
 
@@ -306,11 +307,9 @@ void GetEventsAboveThreshold(){
 
 void LoopEvents(){
 	init();
-	//const auto cats = rootReader.getAvailableCategories();
-	//for (const auto& c : cats) {
-	//	std::cout << c << '\n';
-	//}
+	ReadEDM4hepFile();
+	//Other function examples
 	//GetEventsAboveThreshold();
 	//GetEnergyInECAL<edm4hep::CalorimeterHitCollection>("PixelSiEcalCollectionDigi");
-	GetEnergyInECAL<edm4hep::SimCalorimeterHitCollection>("PixelSiEcalCollection");
+	//GetEnergyInECAL<edm4hep::SimCalorimeterHitCollection>("PixelSiEcalCollection");
 }
