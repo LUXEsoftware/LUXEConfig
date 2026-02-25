@@ -107,3 +107,31 @@ This collection contains the properties of all hits in the tracker produced duri
 Similarly to the SiHits collection in the simulation file, this collection contains the hit properties (coordinates, deposited energy, etc.) in the calorimeter material. The name 'Pixel' in this collection name refers to the segmentation of the calorimeter being applied in the simulation geometry definition.
 
 ## Read files with a Root macro
+An few example functions are available in LoopEvents.C to learn how to read the properties of the different collection elements. To run this file, edit the path to that of the simulation data file created during this tutorial and run with
+```bash
+root -l LoopEvents.C -q
+```
+Complement (or compare) the example code in LoopEvents.C with the information available in https://key4hep.github.io/key4hep-doc/main/how-tos/README.html to read EDM4hep files with the podio root reader. 
+
+# Run LUXE reconstruction
+## The LUXEConfig repository
+Clone the following repository
+```bash
+git clone https://github.com/LUXEsoftware/LUXEConfig.git
+```
+A Gaudi script is available in /reconstruction/luxe_reco.py. In this file a processing chain is defined to read simulation file and apply the digitization and reconstruction Marlin processors (through Gaudi's Marlin processos wrapper) to the PixelSiEcalCollection. The output is and EDM4hep root file with the original MCParticles, SiHits ,and PixelSiEcalCollections plus a PixelSiEcalCollectionDigi and a PixelSiEcalCollectionRec which are of CalorimeterHit datatype. 
+
+The algorithm list defines the order in which Gaudi algorithms are applied, in the luxe_reco.py file this looks like
+```python
+alg_list.extend([
+    MyEcalpDigi,
+    MyEcalpReco,
+])
+```
+In the case of this file, the MyEcalpDigi algorithm reads the PixelSiEcalCollection data and outputs the PixelSiEcalCollectionDigi data, which is then read as input for the MyEcalpReco algorithm and the PixelSiEcalCollectionRec data is created. 
+
+To run this Gaudi steering on the simulation data created with ddsim for this tutorial use the following command. The file paths might need to be adjusted. This will apply the processing chain to the first 10 events. 
+
+```bash
+k4run /reconstruction/luxe_reco.py --inputFile=positrons_LUXE_v0_sf_edm4hep.root --outputFile=reco_test.root -n 10
+```
