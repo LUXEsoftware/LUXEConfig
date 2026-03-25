@@ -59,7 +59,7 @@ MyEcalpReco = MarlinProcessorWrapper("MyEcalpReco")
 MyEcalpReco.ProcessorType = "RealisticCaloRecoSilicon"
 MyEcalpReco.Parameters = {
     "CellIDLayerString": ["layer"],
-    "calibration_factorsMipGev": ["0.00616736103247","0.0125274552256"],
+    "calibration_factorsMipGev": ["0.00616736103247", "0.0125274552256"],
     "calibration_layergroups": ["20", "1"],
     "inputHitCollections": ["PixelSiEcalCollectionDigi"],
     "inputRelationCollections": ["EcalpRelationsSimDigi"],
@@ -67,11 +67,12 @@ MyEcalpReco.Parameters = {
     "outputRelationCollections": ["EcalpRelationsSimRec"],
 }
 
-
-alg_list.extend([
-    MyEcalpDigi,
-    MyEcalpReco,
-])
+alg_list.extend(
+    [
+        MyEcalpDigi,
+        MyEcalpReco,
+    ]
+)
 
 
 io_handler.add_edm4hep_writer(reco_args.outputFile)
