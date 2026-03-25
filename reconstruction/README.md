@@ -7,7 +7,7 @@ moment the whole reconstruction lives in one configuration (or options) file:
 To run reconstruction do
 
 ```bash
-k4run luxe_reco.py --IOSvc.Input=../simulation/luxe_positron_gun.edm4hep.root \
+k4run luxe_reco.py --inputFile=../simulation/luxe_positron_gun.edm4hep.root \
                    --outputFile=luxe_reco.edm4hep.root \
                    --compactFile=${luxegeo_DIR}/LUXE/LUXE_v0.xml
 ```
