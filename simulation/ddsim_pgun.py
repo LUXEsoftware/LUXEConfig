@@ -9,7 +9,7 @@ SIM.compactFile = []
 SIM.enableGun = True
 
 ## number of events to simulate, used in batch mode
-SIM.numberOfEvents = 0
+SIM.numberOfEvents = 10
 ## Outputfile from the simulation: .slcio, edm4hep.root and .root output files are supported
 SIM.outputFile = "luxe_positron_gun.edm4hep.root"
 
@@ -208,7 +208,7 @@ SIM.gun.momentumMax = 14 * GeV
 
 ## Minimal momentum when using distribution (default = 0.0)
 SIM.gun.momentumMin = 0
-SIM.gun.multiplicity = 1000
+SIM.gun.multiplicity = 10
 SIM.gun.particle = "e+"
 
 ## Maximal azimuthal angle for random distribution
